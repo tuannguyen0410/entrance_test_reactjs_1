@@ -1,0 +1,89 @@
+.a-button {
+    $root: &;
+    @include reset-button();
+    cursor: pointer;
+
+    position: relative;
+    display: inline-flex;
+    width: 100%;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    font-size: rem(15);
+    line-height: inherit;
+    padding: rem(8) rem(16);
+    border-radius: rem(2);
+
+    .a-loading_tail {
+        width: rem(26);
+        height: rem(26);
+    }
+
+    &-h24 {
+        height: rem(24);
+    }
+
+    &-h34 {
+        height: rem(34);
+    }
+
+    &-h36 {
+        height: rem(36);
+    }
+
+    &-h42 {
+        height: rem(42);
+    }
+
+    &-h44 {
+        height: rem(44);
+    }
+
+    &-h48 {
+        height: rem(48);
+    }
+
+    &-h56 {
+        height: rem(56);
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    &-primary {
+        color: $white;
+
+        .a-text {
+            color: $white;
+        }
+    }
+
+    &-secondary {
+        .a-text {
+            color: $black;
+        }
+    }
+
+    &_icon {
+        margin-right: rem(8);
+    }
+
+    &-circle {
+        border-radius: 50%;
+        background-color: $white;
+    }
+
+    &-iconRight {
+        flex-direction: row-reverse;
+
+        #{$root}_icon {
+            margin-left: rem(8);
+            margin-right: 0;
+        }
+    }
+}

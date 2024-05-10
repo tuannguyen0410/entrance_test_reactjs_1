@@ -1,0 +1,70 @@
+.a-input {
+    $root: &;
+    position: relative;
+
+    &_label {
+        margin-bottom: rem(4); 
+    }
+
+    &_ele {
+        background-color: $white;
+        border-radius: rem(2) 0 0 rem(2);
+        @include font-base(16, 20);
+        
+        input {
+            width: 100%;
+            outline: 0;
+            border: 0;
+            font-weight: 500;
+            height: rem(48);
+            padding: rem(12) rem(14);
+        }
+
+        &-prefix {
+            margin-top: rem(4);
+            display: flex;
+            align-items: center;
+            padding: rem(12) rem(14);
+
+            input {
+                padding: 0;
+            }
+        }
+    }
+
+    &_error {
+        color: $fire-engine-red;
+        margin-top: rem(6);
+        @include font-base(12, 17);
+    }
+
+    &-bordered {
+        #{$root}_ele {
+            border: 1px solid $black;
+
+            input {
+                height: rem(42);
+            }
+        }
+    }
+
+    &-search {
+        border-bottom: 1px solid $black;
+
+        &::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            transform: translateY(-50%);
+            top: 50%;
+            width: rem(24);
+            height: rem(24);
+            background: url('~assets/icons/ic_search.svg') no-repeat;
+            background-size: contain;
+            background-position: center;
+        }
+        #{$root}_ele {
+            padding-left: 0;
+        }
+    }
+}

@@ -1,0 +1,14 @@
+_templates
+.dockerignore
+.DS_Store
+.git
+.gitignore
+.gitlab-ci.yml
+.hygen.js
+.vscode
+bitbucket-pipelines.yml
+Dockerfile
+node_modules
+README.md
+scripts
+sonar-project.properties
