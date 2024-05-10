@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import useDidMount from 'hooks/useDidMount';
 import {
@@ -14,20 +13,19 @@ const useInitialRender = () => {
   const dispatch = useAppDispatch();
 
   const location = useLocation();
-  const [searchParams] = useSearchParams();
   const navigator = useNavigate();
   const [isDone, setIsDone] = useState(false);
 
   const expiredAction = () => {
-    // if (location.pathname !== '/login') {
-    //   navigator('/login', {
-    //     state: {
-    //       from: `${location.pathname}${location.search}`
-    //     }
-    //   });
-    // } else {
-    //   navigator('/login');
-    // }
+    if (!(location.pathname === '/login' || location.pathname === '/signup')) {
+      navigator(location.pathname, {
+        state: {
+          from: `${location.pathname}${location.search}`
+        }
+      });
+    } else {
+      navigator('/login');
+    }
     setAccessToken('');
     setIsDone(true);
   };

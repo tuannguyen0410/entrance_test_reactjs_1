@@ -145,6 +145,9 @@
 $colors-design: (
     'white': $white,
     'black': $black,
+    'cadet': $cadet,
+    'oldLavender': $old-lavender,
+    'carminePink':$carmine-pink
 );
 
 @mixin style-color {
@@ -155,11 +158,23 @@ $colors-design: (
     }
 }
 @mixin style-font-base() {
+    &-12x18 {
+        @include font-base(12, 18);
+    }
+
     &-16x18 {
         @include font-base(16, 18);
 
         @include mobile-down {
             @include font-base(14, 16);
+        }
+    }
+
+    &-18x21 {
+        @include font-base(18, 21);
+
+        @include mobile-down {
+            @include font-base(16, 18);
         }
     }
 }

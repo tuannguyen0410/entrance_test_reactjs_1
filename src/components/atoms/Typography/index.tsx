@@ -28,7 +28,10 @@ type TextStyle =
 
 type ColorStyle =
   | 'white'
-  | 'black';
+  | 'black'
+  | 'cadet'
+  | 'oldLavender'
+  | 'carminePink';
 
 type LetterSpacing = 'ls-md' | 'ls-lg' | 'ls-xl';
 
@@ -38,7 +41,7 @@ type GeneralTextStyle =
   | ColorStyle
   | LetterSpacing;
 
-type Sizes = '16x18';
+type Sizes = '12x18' | '16x18' | '18x21';
 
 type TextStyleAll = (GeneralTextStyle | Sizes | ColorStyle)[];
 

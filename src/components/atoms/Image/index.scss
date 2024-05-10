@@ -15,7 +15,11 @@
     &-1x1 {
         @include aspect-ratio(1, 1);
     }
-    
+
+    &-726x576 {
+        @include aspect-ratio(726, 576);
+    }
+
     &-16x9 {
         @include aspect-ratio(16, 9);
         @include mobile-down {

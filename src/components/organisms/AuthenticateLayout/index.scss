@@ -1,0 +1,44 @@
+.o-authenticateLayout {
+    height: 100vh;
+    overflow: hidden;
+    @include adjust-flex(flex-start, center);
+    flex-wrap: wrap;
+
+    @include mobile-down {
+        height: 100%;
+        flex-direction: column;
+    }
+
+    &_leftContainer {
+        width: 100%;
+        max-width: calc(956 / 1440 * 100%);
+        background-color: $white-smoke;
+        height: 100%;
+        @include adjust-flex(center, center);
+        @include mobile-down {
+            max-width: 100%;
+            height: auto;
+        }
+
+        img {
+            object-fit: contain;
+        }
+
+        &-imgWrapper {
+            width: 100%;
+            max-width: calc(726 / 956 * 100%);
+        }
+    }
+
+    &_rightContainer {
+        width: 100%;
+        padding: rem(16);
+        max-width: calc(484 / 1440 * 100%);
+        flex-direction: column;
+        @include adjust-flex(center, center);
+        @include mobile-down {
+            margin-top: rem(16);
+            max-width: 100%;
+        }
+    }
+}

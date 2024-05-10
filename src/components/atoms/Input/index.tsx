@@ -20,8 +20,8 @@ const Input: React.FC<InputProps> = ({
   <div className={mapModifiers('a-input', bordered && 'bordered', search && 'search')}>
     {(labelHtml || label) && (
       <label htmlFor={id} className="a-input_label">
-        <Typography.Text type="span">{labelHtml || label}</Typography.Text>
-        {required && <Typography.Text type="span"> *</Typography.Text>}
+        <Typography.Text modifiers={['12x18', '400']} type="span">{labelHtml || label}</Typography.Text>
+        {required && <Typography.Text modifiers={['12x18', '400', 'carminePink']} type="span"> *</Typography.Text>}
       </label>
     )}
     <div className={mapModifiers('a-input_ele', prefix && 'prefix')}>
