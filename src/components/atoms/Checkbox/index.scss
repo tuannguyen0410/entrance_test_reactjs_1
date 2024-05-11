@@ -1,55 +1,90 @@
 .a-checkbox {
     $root: &;
-    @include adjust-flex(flex-start,center);
-    cursor: pointer;
-
-    &_input {
-        &:checked {
-            
-            + #{$root}_holder {
-                background: url('~assets/icons/ic_checked.svg') no-repeat center / contain;
-            }
-        }
-    }
-
-    &_holder {
-        background: url('~assets/icons/ic_check.svg') no-repeat center / contain;
-        height: rem(16);
-        width: rem(16);
-        transition: $transition;
-        flex-shrink: 0;
-    }
+    height: 100%;
 
     &_label {
-        @include font-base(14, 21);
+        @include adjust-flex(space-between);
+        cursor: pointer;
+        padding: rem(10) rem(16);
+        position: relative;
+        border: 1px solid $gainsboro;
+        border-radius: rem(4);
+        height: 100%;
+    }
+
+    &_link {
+        white-space: normal;
+        font-weight: 500;
+        text-decoration: underline;
+        color: $old-lavender7b;
+        @include font-base(14, 20);
         margin-left: rem(8);
-        color: $black;
-        cursor: inherit;
-        font-weight: 400;
+    }
 
-        @include tablet-down {
-            @include font-base(12, 20);
-        }
-
-        &-12x18 {
-            @include font-base(12, 18);
-            @include mobile-down {
-                @include font-base(10, 16);
-            }
-        }
-
-        &-16x28 {
-            @include font-base(16, 28);
-
-            @include tablet-down {
-                @include font-base(14, 24);
+    &-italic,
+    &-normal {
+        #{$root} {
+            &_label {
+                padding: 0;
+                border: 0;
+                display: inline-flex;
+                padding-left: rem(3);
+                flex-direction: row-reverse;
             }
 
-            @include mobile-down {
-                @include font-base(12, 16);
+            &_checkMark {
+                margin-right: rem(7);
             }
         }
+    }
 
-        @include style-color();
+    &-italic {
+        #{$root} {
+            &_label {
+                font-style: italic;
+            }
+        }
+    }
+
+    input {
+        &:checked ~ #{$root}_checkMark {
+            border-color: $medium-slate-blue;
+
+            &::after {
+                display: block;
+            }
+        }
+    }
+
+    &_text {
+        @include font-base(14, 20);
+        white-space: normal;
+        font-weight: 500;
+        color: $old-lavender7b;
+        word-break: break-word;
+    }
+
+    &_checkMark {
+        height: rem(14);
+        width: rem(14);
+        border-radius: rem(3);
+        border: 1px solid $gainsboro;
+        position: relative;
+        flex-shrink: 0;
+
+        &::after {
+            content: '';
+            position: absolute;
+            display: none;
+            left: rem(3);
+            bottom: rem(3);
+            width: rem(3.5);
+            height: rem(7);
+            border: solid $medium-slate-blue;
+            border-width: 0 2px 2px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
     }
 }

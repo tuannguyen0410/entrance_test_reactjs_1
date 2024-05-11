@@ -147,7 +147,8 @@ $colors-design: (
     'black': $black,
     'cadet': $cadet,
     'oldLavender': $old-lavender,
-    'carminePink':$carmine-pink
+    'carminePink': $carmine-pink,
+    'mediumSlateBlue': $medium-slate-blue,
 );
 
 @mixin style-color {
@@ -160,6 +161,10 @@ $colors-design: (
 @mixin style-font-base() {
     &-12x18 {
         @include font-base(12, 18);
+    }
+
+    &-14x21 {
+        @include font-base(14, 21);
     }
 
     &-16x18 {

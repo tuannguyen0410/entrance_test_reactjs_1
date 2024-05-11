@@ -16,6 +16,7 @@ export const setAccessToken = (token: string): void => {
   accessToken = token;
   window.localStorage.setItem('token', token);
 };
+
 export const getRefreshToken = (): string | null => refreshToken;
 
 export const setRefreshToken = (token: string): void => {

@@ -1,0 +1,31 @@
+.o-socialBtnGroup {
+    @include adjust-flex(center, center);
+
+    &_item {
+        border-radius: rem(4);
+        margin: 0 rem(4);
+        padding: rem(8);
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+            opacity: 0.7;
+        }
+
+        &-facebook {
+            background-color: $facebook;
+        }
+
+        &-twitter {
+            background-color: $twitter;
+        }
+
+        &-github {
+            background-color: $github;
+        }
+
+        &-mail {
+            background-color: $mail;
+        }
+    }
+}

@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const Home: React.FC = () => (
-  <div>Page Home</div>
-);
+import { getAccessToken } from 'services/common/storage';
+
+const Home: React.FC = () => {
+  const token = getAccessToken();
+  const navigator = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      navigator('/login');
+    }
+  }, [token, navigator]);
+  return (
+    <div>Page Home</div>
+  );
+};
 
 export default Home;

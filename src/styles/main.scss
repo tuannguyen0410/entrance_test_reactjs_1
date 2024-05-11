@@ -69,3 +69,26 @@ img {
         margin-top: rem(16);
     }
 }
+
+.separator {
+    @include adjust-flex(center, center);
+}
+
+.separator::before,
+.separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid $platinum;
+    color: $old-lavender7b;
+    @include font-base(14, 21);
+}
+
+.separator:not(:empty)::before {
+    margin-right: rem(4);
+    padding-right: rem(4);
+}
+
+.separator:not(:empty)::after {
+    margin-left: rem(4);
+    padding-left: rem(4);
+}

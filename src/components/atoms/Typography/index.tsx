@@ -41,7 +41,7 @@ type GeneralTextStyle =
   | ColorStyle
   | LetterSpacing;
 
-type Sizes = '12x18' | '16x18' | '18x21';
+type Sizes = '12x18' | '14x21' | '16x18' | '18x21';
 
 type TextStyleAll = (GeneralTextStyle | Sizes | ColorStyle)[];
 

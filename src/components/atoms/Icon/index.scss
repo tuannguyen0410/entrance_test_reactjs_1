@@ -19,6 +19,11 @@
         width: rem(12);
     }
 
+    &-14 {
+        height: rem(14);
+        width: rem(14);
+    }
+
     &-16 {
         height: rem(16);
         width: rem(16);
@@ -43,8 +48,24 @@
         height: rem(40);
         width: rem(40);
     }
-  
+
     &-search {
         background-image: url('~assets/icons/ic_search.svg');
+    }
+
+    &-fb {
+        background-image: url('~assets/icons/ic_fb.svg');
+    }
+
+    &-twt {
+        background-image: url('~assets/icons/ic_twt.svg');
+    }
+
+    &-mail {
+        background-image: url('~assets/icons/ic_mail.svg');
+    }
+
+    &-git {
+        background-image: url('~assets/icons/ic_git.svg');
     }
 }

@@ -4,11 +4,15 @@ import mapModifiers from 'utils/functions';
 
 export const iconList = {
   search: 'search',
+  fb: 'fb',
+  twt: 'twt',
+  mail: 'mail',
+  git: 'git',
 };
 
 export type IconName = keyof typeof iconList;
 
-export type IconSize = '6' | '8' | '12' | '16' | '20' | '24' | '32' | '40';
+export type IconSize = '6' | '8' | '12' | '14' | '16' | '20' | '24' | '32' | '40';
 interface IconProps {
   iconName: IconName;
   size?: IconSize;

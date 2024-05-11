@@ -1,47 +1,42 @@
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/require-default-props */
-import React, { forwardRef, useId } from 'react';
-
-import Typography from '../Typography';
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import React, { forwardRef } from 'react';
 
 import mapModifiers from 'utils/functions';
 
-interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  name: string;
-  error?: string;
-  modifiers?: '12x18' | '16x28';
-  disableLabel?: boolean;
+export interface CheckBoxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
+  link?: {
+    title: string;
+    onClick: () => void;
+  }
+  label?: string;
+  variant?: 'normal' | 'italic';
 }
 
-const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
+const Checkbox = forwardRef<HTMLInputElement, CheckBoxProps>(
   ({
-    name, error, children, modifiers, disableLabel, required, ...props
-  }, ref) => {
-    const id = useId();
-    return (
-      <label htmlFor={id} className={mapModifiers('a-checkbox', required && 'required')}>
+    link,
+    label,
+    variant,
+    ...props
+  }, ref) => (
+    <div className={mapModifiers('a-checkbox', variant)}>
+      <label className="a-checkbox_label">
         <input
-          className="a-checkbox_input"
           type="checkbox"
-          id={id}
           ref={ref}
-          name={name}
           hidden
           {...props}
         />
-        <span className="a-checkbox_holder" />
-        {children && (
-          <span className="a-checkbox_label">
-            <Typography.Text>{children}</Typography.Text>
-          </span>
+        {link && (
+          <div className="a-checkbox_link" onClick={link.onClick}>
+            {link.title}
+          </div>
         )}
+        <span className="a-checkbox_text">{label}</span>
+        <span className="a-checkbox_checkMark" />
       </label>
-    );
-  },
+    </div>
+  ),
 );
-
-Checkbox.defaultProps = {
-  error: undefined,
-};
 
 export default Checkbox;
