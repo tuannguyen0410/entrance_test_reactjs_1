@@ -15,10 +15,10 @@
     &_link {
         white-space: normal;
         font-weight: 500;
-        text-decoration: underline;
-        color: $old-lavender7b;
-        @include font-base(14, 20);
+        color: $medium-slate-blue;
+        @include font-base(14, 21);
         margin-left: rem(8);
+        cursor: pointer;
     }
 
     &-italic,

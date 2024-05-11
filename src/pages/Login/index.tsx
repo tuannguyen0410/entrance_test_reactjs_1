@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import Toast from 'react-bootstrap/Toast';
+import ToastContainer from 'react-bootstrap/ToastContainer';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
@@ -28,6 +30,15 @@ const Login: React.FC = () => {
   const dispatch = useAppDispatch();
   const { loginSchema } = useSchemas();
   const navigator = useNavigate();
+  const [actionStatus, setActionStatus] = useState<{
+    isOpen: boolean,
+    isSuccess: boolean,
+    message: string,
+  }>({
+    isOpen: false,
+    isSuccess: false,
+    message: ''
+  });
   const method = useForm<LoginForm>({
     mode: 'onSubmit',
     resolver: yupResolver(loginSchema),
@@ -38,7 +49,7 @@ const Login: React.FC = () => {
     },
   });
 
-  const { mutate: loginMutate } = useMutation(
+  const { mutate: loginMutate, isLoading } = useMutation(
     ['loginService'],
     async (data: LoginParams) => loginService(data),
     {
@@ -46,16 +57,24 @@ const Login: React.FC = () => {
         setAccessToken(data.accessToken);
         setRefreshToken(data.refreshToken);
         dispatch(setUserProfile(data.user));
+        setActionStatus({
+          isOpen: true,
+          isSuccess: true,
+          message: 'Login successfully',
+        });
         navigator('/');
       },
-      // onError: () => {
-      //   // setModalLogin(true);
-      // }
+      onError: () => {
+        setActionStatus({
+          isOpen: true,
+          isSuccess: false,
+          message: 'Login failed !',
+        });
+      }
     }
   );
   const handleSubmit = (data: LoginParams) => {
     loginMutate(data);
-    console.log('🚀 ~ handleSubmit ~ data:', data);
   };
   useEffect(() => {
     if (token) {
@@ -64,71 +83,91 @@ const Login: React.FC = () => {
   }, [token, navigator]);
   return (
     <div className="p-login">
+      <ToastContainer
+        className="p-3"
+        position="top-end"
+        style={{ zIndex: 1 }}
+      >
+        <Toast bg={actionStatus.isSuccess ? 'success' : 'danger'} show={actionStatus.isOpen} delay={3000} autohide>
+          <Toast.Body>
+            <Typography.Text modifiers={['white', '400', '16x18']}>
+              {actionStatus.message}
+            </Typography.Text>
+          </Toast.Body>
+        </Toast>
+      </ToastContainer>
       <AuthenticateLayout leftBgImage={loginBg}>
-        <Typography.Heading modifiers={['cadet', '500', '18x21']}>
-          Welcome to Entrance Test Interview!
-        </Typography.Heading>
-        <div className="u-mt-8">
-          <Typography.Text modifiers={['oldLavender', '400', '16x18']}>
-            Please sign-in to your account and start the adventure
-          </Typography.Text>
-        </div>
-        <div className="p-login_form u-mt-16">
-          <FormProvider {...method}>
-            <Controller
-              name="email"
-              render={({ field: { value, onChange }, fieldState }) => (
-                <Input
-                  value={value}
-                  onChange={onChange}
-                  type="email"
-                  placeholder="johndoe@gmail.com"
-                  required
-                  label="Email"
-                  error={fieldState.error?.message}
-                />
-              )}
-            />
-            <div className="u-mt-16">
+        <div className="p-login_form">
+          <Typography.Heading modifiers={['cadet', '500', '18x21']}>
+            Welcome to Entrance Test Interview!
+          </Typography.Heading>
+          <div className="u-mt-8">
+            <Typography.Text modifiers={['oldLavender', '400', '16x18']}>
+              Please sign-in to your account and start the adventure
+            </Typography.Text>
+          </div>
+          <div className="u-mt-16">
+            <FormProvider {...method}>
               <Controller
-                name="password"
+                name="email"
                 render={({ field: { value, onChange }, fieldState }) => (
                   <Input
                     value={value}
-                    onChange={(el) => onChange(el.target.value)}
-                    type="password"
-                    placeholder=""
+                    onChange={onChange}
+                    type="email"
+                    placeholder="johndoe@gmail.com"
                     required
-                    label="Password"
+                    label="Email"
                     error={fieldState.error?.message}
                   />
                 )}
               />
-            </div>
-            <div className="u-mt-16">
-              <Controller
-                name="remember"
-                render={({ field: { value, onChange } }) => (
-                  <Checkbox
-                    variant="normal"
-                    onChange={onChange}
-                    checked={value}
-                    label="Remember me"
-                  />
-                )}
-              />
-            </div>
-            <div className="u-mt-16">
-              <Button
-                variant="primary"
-                sizes="h38"
-                type="submit"
-                handleClick={method.handleSubmit(handleSubmit)}
-              >
-                Login
-              </Button>
-            </div>
-          </FormProvider>
+              <div className="u-mt-16">
+                <Controller
+                  name="password"
+                  render={({ field: { value, onChange }, fieldState }) => (
+                    <Input
+                      value={value}
+                      onChange={(el) => onChange(el.target.value)}
+                      type="password"
+                      placeholder=""
+                      required
+                      label="Password"
+                      error={fieldState.error?.message}
+                      link={{
+                        title: 'Forgot Password?',
+                        onClick: () => { }
+                      }}
+                    />
+                  )}
+                />
+              </div>
+              <div className="u-mt-16">
+                <Controller
+                  name="remember"
+                  render={({ field: { value, onChange } }) => (
+                    <Checkbox
+                      variant="normal"
+                      onChange={onChange}
+                      checked={value}
+                      label="Remember me"
+                    />
+                  )}
+                />
+              </div>
+              <div className="u-mt-16">
+                <Button
+                  variant="primary"
+                  sizes="h38"
+                  type="submit"
+                  disabled={isLoading}
+                  handleClick={method.handleSubmit(handleSubmit)}
+                >
+                  Login
+                </Button>
+              </div>
+            </FormProvider>
+          </div>
           <div className="a-text-center u-mt-16">
             <Typography.Text type="span" modifiers={['oldLavender', '400', '14x21']}>
               New on our platform?

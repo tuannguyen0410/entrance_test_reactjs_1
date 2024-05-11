@@ -2,6 +2,19 @@
     $root: &;
     position: relative;
 
+    &_labelWrapper {
+        @include adjust-flex(space-between, center);
+
+        &_link {
+            white-space: normal;
+            font-weight: 500;
+            color: $medium-slate-blue;
+            @include font-base(12, 18);
+            margin-left: rem(8);
+            cursor: pointer;
+        }
+    }
+
     &_ele {
         background-color: $white;
         border-radius: rem(2) 0 0 rem(2);

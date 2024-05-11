@@ -27,6 +27,10 @@
         &-imgWrapper {
             width: 100%;
             max-width: calc(726 / 956 * 100%);
+
+            @include mobile-down {
+                max-width: calc(205 / 375 * 100%);
+            }
         }
     }
 
