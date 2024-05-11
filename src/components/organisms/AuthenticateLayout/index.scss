@@ -4,7 +4,7 @@
     @include adjust-flex(flex-start, center);
     flex-wrap: wrap;
 
-    @include mobile-down {
+    @include tablet-down {
         height: 100%;
         flex-direction: column;
     }
@@ -15,7 +15,7 @@
         background-color: $white-smoke;
         height: 100%;
         @include adjust-flex(center, center);
-        @include mobile-down {
+        @include tablet-down {
             max-width: 100%;
             height: auto;
         }
@@ -28,7 +28,7 @@
             width: 100%;
             max-width: calc(726 / 956 * 100%);
 
-            @include mobile-down {
+            @include tablet-down {
                 max-width: calc(205 / 375 * 100%);
             }
         }
@@ -40,7 +40,7 @@
         max-width: calc(484 / 1440 * 100%);
         flex-direction: column;
         @include adjust-flex(center, center);
-        @include mobile-down {
+        @include tablet-down {
             margin-top: rem(16);
             max-width: 100%;
         }

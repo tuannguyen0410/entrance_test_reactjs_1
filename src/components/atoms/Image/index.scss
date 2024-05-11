@@ -19,8 +19,15 @@
     &-726x576 {
         @include aspect-ratio(726, 576);
 
-        @include mobile-down {
+        @include tablet-down {
             @include aspect-ratio(205, 150);
+        }
+    }
+
+    &-595x496 {
+        @include aspect-ratio(595, 496);
+        @include tablet-down {
+            @include aspect-ratio(300, 250);
         }
     }
 

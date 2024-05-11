@@ -102,6 +102,10 @@
         text-transform: uppercase;
     }
 
+    &-right {
+        text-align: right;
+    }
+
     &-capitalize {
         text-transform: capitalize;
     }
@@ -149,6 +153,8 @@ $colors-design: (
     'oldLavender': $old-lavender,
     'carminePink': $carmine-pink,
     'mediumSlateBlue': $medium-slate-blue,
+    'oldLavender7b': $old-lavender7b,
+    'gray': $gray
 );
 
 @mixin style-color {

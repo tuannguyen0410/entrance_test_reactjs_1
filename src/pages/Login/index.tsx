@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useEffect, useState } from 'react';
-import Toast from 'react-bootstrap/Toast';
-import ToastContainer from 'react-bootstrap/ToastContainer';
+import React, { useEffect } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import loginBg from 'assets/images/signIn_bg.png';
 import Button from 'components/atoms/Button';
@@ -30,17 +28,8 @@ const Login: React.FC = () => {
   const dispatch = useAppDispatch();
   const { loginSchema } = useSchemas();
   const navigator = useNavigate();
-  const [actionStatus, setActionStatus] = useState<{
-    isOpen: boolean,
-    isSuccess: boolean,
-    message: string,
-  }>({
-    isOpen: false,
-    isSuccess: false,
-    message: ''
-  });
   const method = useForm<LoginForm>({
-    mode: 'onSubmit',
+    mode: 'onChange',
     resolver: yupResolver(loginSchema),
     defaultValues: {
       email: '',
@@ -57,18 +46,26 @@ const Login: React.FC = () => {
         setAccessToken(data.accessToken);
         setRefreshToken(data.refreshToken);
         dispatch(setUserProfile(data.user));
-        setActionStatus({
-          isOpen: true,
-          isSuccess: true,
-          message: 'Login successfully',
+        toast.success('Login Successfully!', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
         });
         navigator('/');
       },
       onError: () => {
-        setActionStatus({
-          isOpen: true,
-          isSuccess: false,
-          message: 'Login failed !',
+        toast.error('Login Failed!', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
         });
       }
     }
@@ -83,19 +80,6 @@ const Login: React.FC = () => {
   }, [token, navigator]);
   return (
     <div className="p-login">
-      <ToastContainer
-        className="p-3"
-        position="top-end"
-        style={{ zIndex: 1 }}
-      >
-        <Toast bg={actionStatus.isSuccess ? 'success' : 'danger'} show={actionStatus.isOpen} delay={3000} autohide>
-          <Toast.Body>
-            <Typography.Text modifiers={['white', '400', '16x18']}>
-              {actionStatus.message}
-            </Typography.Text>
-          </Toast.Body>
-        </Toast>
-      </ToastContainer>
       <AuthenticateLayout leftBgImage={loginBg}>
         <div className="p-login_form">
           <Typography.Heading modifiers={['cadet', '500', '18x21']}>
@@ -160,7 +144,7 @@ const Login: React.FC = () => {
                   variant="primary"
                   sizes="h38"
                   type="submit"
-                  disabled={isLoading}
+                  disabled={isLoading || !method.formState.isValid}
                   handleClick={method.handleSubmit(handleSubmit)}
                 >
                   Login

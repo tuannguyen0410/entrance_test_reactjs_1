@@ -8,6 +8,9 @@ export const iconList = {
   twt: 'twt',
   mail: 'mail',
   git: 'git',
+  power: 'power',
+  logout: 'logout',
+  close: 'close'
 };
 
 export type IconName = keyof typeof iconList;

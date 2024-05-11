@@ -31,7 +31,9 @@ type ColorStyle =
   | 'black'
   | 'cadet'
   | 'oldLavender'
-  | 'carminePink';
+  | 'carminePink'
+  | 'oldLavender7b'
+  | 'gray';
 
 type LetterSpacing = 'ls-md' | 'ls-lg' | 'ls-xl';
 

@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 import {
   BrowserRouter, Route, Routes
 } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import useInitialRender from 'hooks/useInitialRender';
 import Home from 'pages/Home';
@@ -54,6 +56,7 @@ const App: React.FC = () => {
 const AppWrapper: React.FC = () => (
   <Provider store={store}>
     <App />
+    <ToastContainer />
   </Provider>
 );
 

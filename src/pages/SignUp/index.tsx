@@ -1,13 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useState } from 'react';
-import Toast from 'react-bootstrap/Toast';
-import ToastContainer from 'react-bootstrap/ToastContainer';
+import React from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
-import loginBg from 'assets/images/signIn_bg.png';
+import signUpBg from 'assets/images/signUp_bg.png';
 import Button from 'components/atoms/Button';
 import Checkbox from 'components/atoms/Checkbox';
 import Input from 'components/atoms/Input';
@@ -25,15 +23,6 @@ type SignUpform = SignUpParams & { term: boolean };
 const SignUp: React.FC = () => {
   const { signUpSchema } = useSchemas();
   const navigator = useNavigate();
-  const [actionStatus, setActionStatus] = useState<{
-    isOpen: boolean,
-    isSuccess: boolean,
-    message: string,
-  }>({
-    isOpen: false,
-    isSuccess: false,
-    message: ''
-  });
   const method = useForm<SignUpform>({
     mode: 'onChange',
     resolver: yupResolver(signUpSchema),
@@ -48,46 +37,41 @@ const SignUp: React.FC = () => {
 
   const watchTerm = method.watch('term');
 
-  const { mutate: signUpMudate, isLoading } = useMutation(
+  const { mutate: signUpMutate, isLoading } = useMutation(
     ['signUpService'],
     async (data: SignUpParams) => signUpService(data),
     {
       onSuccess: () => {
-        setActionStatus({
-          isOpen: true,
-          isSuccess: true,
-          message: 'Sign Up successfully',
+        toast.success('SignUp Successfully!', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
         });
         navigator('/login');
       },
       onError: () => {
-        setActionStatus({
-          isOpen: true,
-          isSuccess: false,
-          message: 'Sign Up failed !',
+        toast.error('Sign Up Failed!', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
         });
       }
     }
   );
   const handleSubmit = (data: SignUpParams) => {
-    signUpMudate(data);
+    signUpMutate(data);
   };
   return (
     <div className="p-signUp">
-      <ToastContainer
-        className="p-3"
-        position="top-end"
-        style={{ zIndex: 1 }}
-      >
-        <Toast bg={actionStatus.isSuccess ? 'success' : 'danger'} show={actionStatus.isOpen} delay={3000} autohide>
-          <Toast.Body>
-            <Typography.Text modifiers={['white', '400', '16x18']}>
-              {actionStatus.message}
-            </Typography.Text>
-          </Toast.Body>
-        </Toast>
-      </ToastContainer>
-      <AuthenticateLayout leftBgImage={loginBg}>
+      <AuthenticateLayout leftBgImage={signUpBg}>
         <div className="p-signUp_form u-mt-16">
           <Typography.Heading modifiers={['cadet', '500', '18x21']}>
             Adventure starts here
@@ -184,7 +168,7 @@ const SignUp: React.FC = () => {
                   sizes="h38"
                   type="submit"
                   handleClick={method.handleSubmit(handleSubmit)}
-                  disabled={!watchTerm || isLoading}
+                  disabled={!watchTerm || isLoading || !method.formState.isValid}
                 >
                   Sign Up
                 </Button>

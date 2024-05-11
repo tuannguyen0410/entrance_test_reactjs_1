@@ -16,6 +16,10 @@ export type LoginParams = {
   password: string,
 };
 
+export type LogoutParams = {
+  refreshToken: string,
+};
+
 export type SignUpParams = {
   email: string,
   password: string,

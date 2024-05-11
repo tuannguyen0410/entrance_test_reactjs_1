@@ -3,7 +3,7 @@
         width: 100%;
         max-width: calc(340 / 484 * 100%);
 
-        @include mobile-down {
+        @include tablet-down {
             max-width: 100%;
         }
     }
